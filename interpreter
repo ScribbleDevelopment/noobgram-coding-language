@@ -1,4 +1,5 @@
 import re
+import random
 
 # Storage for Noobgram variables
 big_brain = {}
@@ -11,14 +12,19 @@ unlocked_features = {
     "multiplication": False,
     "subtraction": False,
     "division": False,
-    "loops": False
+    "loops": False,
+    "random": False      # Added random feature here!
 }
 
 def parse_line(line):
     global big_brain, unlocked_features
     line = line.strip()
     
-    # 1. MANDATORY SIGN-OFF CHECK
+    # 1. COMMENT CHECK: Ignore comments completely
+    if line.startswith("hey bro btw"):
+        return
+
+    # 2. MANDATORY SIGN-OFF CHECK
     if "yo to the yo tengo" not in line:
         print(f"dis ({line}) oop da dat not righting ): (You forgot 'yo to the yo tengo'!)")
         return
@@ -30,7 +36,7 @@ def parse_line(line):
         print("yo to the yo tengo")
         return
 
-    # 2. VARIABLE ASSIGNMENT & MATH
+    # 3. VARIABLE ASSIGNMENT & MATH
     var_match = re.match(r'^store this in me big brain (\w+) (.+)$', line)
     if var_match:
         if not unlocked_features["variables"]:
@@ -38,6 +44,18 @@ def parse_line(line):
             return
             
         var_name, val_expr = var_match.groups()
+        
+        # Random Number Generation Block (choose one X thru Y)
+        if "choose one" in val_expr and "thru" in val_expr:
+            if not unlocked_features["random"]:
+                print("dis line oop da dat not righting ): (Random math is locked! Beg Nooby for 'random'!)")
+                return
+            rand_match = re.match(r'^choose one (\d+) thru (\d+)$', val_expr)
+            if rand_match:
+                low, high = map(int, rand_match.groups())
+                big_brain[var_name] = random.randint(low, high)
+                print("yo to the yo tengo")
+                return
         
         # Addition Math Block
         if "plus da dis number" in val_expr:
@@ -97,7 +115,7 @@ def parse_line(line):
             print("yo to the yo tengo")
             return
 
-    # 3. PRINTING
+    # 4. PRINTING
     print_match = re.match(r'^hello world\("(.+)"\)$', line)
     if print_match:
         if not unlocked_features["printing"]:
@@ -111,7 +129,7 @@ def parse_line(line):
         print("yo to the yo tengo")
         return
 
-    # 4. LOOPS
+    # 5. LOOPS
     loop_match = re.match(r'^do dis lot (\d+) (.+) stawp \):\s*$', line)
     if loop_match:
         if not unlocked_features["loops"]:
@@ -132,9 +150,11 @@ def parse_line(line):
 
 # --- TERMINAL LOOP ---
 print("--- INSTANT-RUN NOOBGRAM TERMINAL ---")
+print("YO CLICK THIS LINK TO SEE NOOBGRAM LOGO:")
+print("https://github.com")
+print("-------------------------------------")
 print("Everything runs instantly when you hit enter!")
-print("Beg style: nooby pls add [feature] i beg T_T")
-print("Or try the secret master bypass phrase...")
+print("Beg style: nooby pls add [random] i beg T_T")
 print("-------------------------------------")
 
 while True:
@@ -178,6 +198,9 @@ while True:
         elif "loop" in beg_request or "lot" in beg_request:
             unlocked_features["loops"] = True
             print("✨ fIne i unlocked LOOPS via 'do dis lot [X] [command] stawp ):' T_T")
+        elif "rand" in beg_request or "choose" in beg_request:
+            unlocked_features["random"] = True
+            print("✨ fIne i unlocked RANDOM via 'choose one [min] thru [max]' T_T")
         else:
             print("🤨 what even is that? stop wasting my time and beg for actual features!")
         continue
