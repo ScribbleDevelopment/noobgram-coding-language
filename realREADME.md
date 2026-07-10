@@ -1,4 +1,4 @@
-# 🤪 Noobgram (`.eughnoob`)
+# Noobgram
 
 Welcome to **Noobgram**, the ultimate esoteric meme language designed to look like the programmer has absolutely no idea what they are doing. 
 
@@ -6,7 +6,7 @@ Nothing works out of the box. You must actively beg the language engine to unloc
 
 ---
 
-## 🔒 The Rules of Noobgram
+## The Rules of Noobgram
 
 1. **Every single line of code** must end with the mandatory sign-off phrase: `yo to the yo tengo`
 2. **If you make a typo**, the compiler will crash and scream: `oop da dat not righting ):`
@@ -14,7 +14,7 @@ Nothing works out of the box. You must actively beg the language engine to unloc
 
 ---
 
-## 🛐 How to Beg For Features
+## How to Beg For Features
 
 Type these commands directly into the Noobgram interactive terminal to unlock capabilities:
 
@@ -23,7 +23,7 @@ Type these commands directly into the Noobgram interactive terminal to unlock ca
 * **Unlock Math:** `nooby pls add addition i beg T_T`
 * **Unlock Loops:** `nooby pls add loops i beg T_T`
 
-### 🤫 The Secret Bypass Key
+### The Secret Bypass Key
 If you don't feel like begging, you can bypass the security by typing exactly:
 ```text
 nooby you are so tengo (:
@@ -32,7 +32,7 @@ The terminal will respond with `🔥 AIGGGHTTT BET BRO I GOTCHU 🔥` and instan
 
 ---
 
-## 🛠️ Noobgram Syntax Cheat Sheet
+## Noobgram Syntax Cheat Sheet
 
 Once features are unlocked, use this beautiful syntax:
 
@@ -43,7 +43,7 @@ Once features are unlocked, use this beautiful syntax:
 
 ---
 
-## 🚀 How to Run (iPad Web Compiler Friendly)
+## How to Use Noobgram
 1. Copy the code from "interpreter"
 2. Put the code in a Python compiler
 3. Start programming in the noobiest language
