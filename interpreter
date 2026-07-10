@@ -1,0 +1,186 @@
+import re
+
+# Storage for Noobgram variables
+big_brain = {}
+
+# EVERYTHING starts completely locked!
+unlocked_features = {
+    "printing": False,
+    "variables": False,
+    "addition": False,
+    "multiplication": False,
+    "subtraction": False,
+    "division": False,
+    "loops": False
+}
+
+def parse_line(line):
+    global big_brain, unlocked_features
+    line = line.strip()
+    
+    # 1. MANDATORY SIGN-OFF CHECK
+    if "yo to the yo tengo" not in line:
+        print(f"dis ({line}) oop da dat not righting ): (You forgot 'yo to the yo tengo'!)")
+        return
+        
+    # Strip out the sign-off phrase to evaluate the actual command
+    line = line.replace("yo to the yo tengo", "").strip()
+    
+    if not line or line.startswith('#'):
+        print("yo to the yo tengo")
+        return
+
+    # 2. VARIABLE ASSIGNMENT & MATH
+    var_match = re.match(r'^store this in me big brain (\w+) (.+)$', line)
+    if var_match:
+        if not unlocked_features["variables"]:
+            print("dis line oop da dat not righting ): (Variables are locked! Beg Nooby for 'variables'!)")
+            return
+            
+        var_name, val_expr = var_match.groups()
+        
+        # Addition Math Block
+        if "plus da dis number" in val_expr:
+            if not unlocked_features["addition"]:
+                print("dis line oop da dat not righting ): (Addition is locked! Beg Nooby for 'addition'!)")
+                return
+            parts = val_expr.split("plus da dis number")
+            p1, p2 = parts[0].strip(), parts[1].strip()
+            v1 = big_brain.get(p1, int(p1) if p1.isdigit() else p1)
+            v2 = big_brain.get(p2, int(p2) if p2.isdigit() else p2)
+            big_brain[var_name] = v1 + v2
+            print("yo to the yo tengo")
+            return
+            
+        # Multiplication Math Block
+        elif "timez da dis number" in val_expr:
+            if not unlocked_features["multiplication"]:
+                print("dis line oop da dat not righting ): (Multiplication is locked! Beg Nooby for 'multiplication'!)")
+                return
+            parts = val_expr.split("timez da dis number")
+            p1, p2 = parts[0].strip(), parts[1].strip()
+            v1 = big_brain.get(p1, int(p1) if p1.isdigit() else p1)
+            v2 = big_brain.get(p2, int(p2) if p2.isdigit() else p2)
+            big_brain[var_name] = v1 * v2
+            print("yo to the yo tengo")
+            return
+
+        # Subtraction Math Block
+        elif "minus da dis number" in val_expr:
+            if not unlocked_features["subtraction"]:
+                print("dis line oop da dat not righting ): (Subtraction is locked! Beg Nooby for 'subtraction'!)")
+                return
+            parts = val_expr.split("minus da dis number")
+            p1, p2 = parts[0].strip(), parts[1].strip()
+            v1 = big_brain.get(p1, int(p1) if p1.isdigit() else p1)
+            v2 = big_brain.get(p2, int(p2) if p2.isdigit() else p2)
+            big_brain[var_name] = v1 - v2
+            print("yo to the yo tengo")
+            return
+
+        # Division Math Block
+        elif "divide da dis number" in val_expr:
+            if not unlocked_features["division"]:
+                print("dis line oop da dat not righting ): (Division is locked! Beg Nooby for 'division'!)")
+                return
+            parts = val_expr.split("divide da dis number")
+            p1, p2 = parts[0].strip(), parts[1].strip()
+            v1 = big_brain.get(p1, int(p1) if p1.isdigit() else p1)
+            v2 = big_brain.get(p2, int(p2) if p2.isdigit() else p2)
+            big_brain[var_name] = int(v1 / v2) if v2 != 0 else 0
+            print("yo to the yo tengo")
+            return
+
+        # Raw value assignment
+        else:
+            big_brain[var_name] = int(val_expr) if val_expr.isdigit() else val_expr.strip('"')
+            print("yo to the yo tengo")
+            return
+
+    # 3. PRINTING
+    print_match = re.match(r'^hello world\("(.+)"\)$', line)
+    if print_match:
+        if not unlocked_features["printing"]:
+            print("dis line oop da dat not righting ): (Printing is locked! Beg Nooby for 'printing'!)")
+            return
+        content = print_match.group(1)
+        if content in big_brain:
+            print(big_brain[content])
+        else:
+            print(content)
+        print("yo to the yo tengo")
+        return
+
+    # 4. LOOPS
+    loop_match = re.match(r'^do dis lot (\d+) (.+) stawp \):\s*$', line)
+    if loop_match:
+        if not unlocked_features["loops"]:
+            print("dis line oop da dat not righting ): (Loops are locked! Beg Nooby for 'loops'!)")
+            return
+        times = int(loop_match.group(1))
+        inner_command = loop_match.group(2).strip()
+        
+        for _ in range(times):
+            if inner_command.startswith("hello world"):
+                content = re.match(r'^hello world\("(.+)"\)$', inner_command).group(1)
+                if content in big_brain: print(big_brain[content])
+                else: print(content)
+        print("yo to the yo tengo")
+        return
+
+    print(f"dis ({line}) oop da dat not righting ):")
+
+# --- TERMINAL LOOP ---
+print("--- INSTANT-RUN NOOBGRAM TERMINAL ---")
+print("Everything runs instantly when you hit enter!")
+print("Beg style: nooby pls add [feature] i beg T_T")
+print("Or try the secret master bypass phrase...")
+print("-------------------------------------")
+
+while True:
+    try:
+        user_input = input("noobgram> ").strip()
+    except EOFError:
+        break
+
+    if not user_input:
+        continue
+
+    # MASTER BYPASS FEATURE: Instantly unlock everything!
+    if user_input == "nooby you are so tengo (:":
+        for feature in unlocked_features:
+            unlocked_features[feature] = True
+        print("🔥 AIGGGHTTT BET BRO I GOTCHU 🔥")
+        continue
+
+    # BEGGING PARSER: Intercepts requests immediately
+    if user_input.startswith("nooby pls add") and user_input.endswith("i beg T_T"):
+        beg_request = user_input.replace("nooby pls add", "").replace("i beg T_T", "").strip().lower()
+        
+        if "print" in beg_request or "hello" in beg_request:
+            unlocked_features["printing"] = True
+            print("✨ fIne i unlocked PRINTING... u can use hello world(\"text\") now T_T")
+        elif "variable" in beg_request or "brain" in beg_request:
+            unlocked_features["variables"] = True
+            print("✨ fIne i unlocked VARIABLES... u can use store this in me big brain T_T")
+        elif "add" in beg_request or "plus" in beg_request:
+            unlocked_features["addition"] = True
+            print("✨ fIne i unlocked ADDITION via 'plus da dis number' T_T")
+        elif "sub" in beg_request or "minus" in beg_request:
+            unlocked_features["subtraction"] = True
+            print("✨ fIne i unlocked SUBTRACTION via 'minus da dis number' T_T")
+        elif "multi" in beg_request or "timez" in beg_request:
+            unlocked_features["multiplication"] = True
+            print("✨ fIne i unlocked MULTIPLICATION via 'timez da dis number' T_T")
+        elif "divi" in beg_request or "divide" in beg_request:
+            unlocked_features["division"] = True
+            print("✨ fIne i unlocked DIVISION via 'divide da dis number' T_T")
+        elif "loop" in beg_request or "lot" in beg_request:
+            unlocked_features["loops"] = True
+            print("✨ fIne i unlocked LOOPS via 'do dis lot [X] [command] stawp ):' T_T")
+        else:
+            print("🤨 what even is that? stop wasting my time and beg for actual features!")
+        continue
+
+    # Run the single line instantly!
+    parse_line(user_input)
