@@ -1,0 +1,6 @@
+Noobgram:
+  type: programming
+  tm_scope: source.noobgram
+  extensions:
+    - .nooby
+  language_id: 9999
