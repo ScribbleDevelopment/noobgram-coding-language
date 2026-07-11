@@ -1,10 +1,11 @@
 import re
 import random
+import urllib.parse
 
-# Storage for Noobgram variables
+# 1. The "Big Brain" memory storage for Noobgram variables
 big_brain = {}
 
-# EVERYTHING starts completely locked!
+# 2. EVERYTHING starts completely locked!
 unlocked_features = {
     "printing": False,
     "variables": False,
@@ -13,18 +14,20 @@ unlocked_features = {
     "subtraction": False,
     "division": False,
     "loops": False,
-    "random": False      # Added random feature here!
+    "random": False,
+    "browser": False
 }
 
 def parse_line(line):
     global big_brain, unlocked_features
     line = line.strip()
     
-    # 1. COMMENT CHECK: Ignore comments completely
+    # --- FEATURE: COMMENT CHECK ---
+    # Notes starting with 'hey bro btw' are completely ignored (no sign-off required)
     if line.startswith("hey bro btw"):
         return
 
-    # 2. MANDATORY SIGN-OFF CHECK
+    # --- MANDATORY SIGN-OFF CHECK ---
     if "yo to the yo tengo" not in line:
         print(f"dis ({line}) oop da dat not righting ): (You forgot 'yo to the yo tengo'!)")
         return
@@ -36,7 +39,22 @@ def parse_line(line):
         print("yo to the yo tengo")
         return
 
-    # 3. VARIABLE ASSIGNMENT & MATH
+    # --- FEATURE: WEB BROWSER ---
+    site_match = re.match(r'^gimme da site "([^"]+)"$', line)
+    if site_match:
+        if not unlocked_features["browser"]:
+            print("dis line oop da dat not righting ): (Browser is locked! Beg Nooby for 'browser'!)")
+            return
+        url = site_match.group(1)
+        if not url.startswith("http"):
+            url = "https://" + url
+        safe_url = urllib.parse.quote(url, safe=':/?=.-_')
+        print(f"\n🌐 [Noobgram Browser launched successfully!]")
+        print(f"👉 TAP THIS LINK TO OPEN: {safe_url}")
+        print("yo to the yo tengo\n")
+        return
+
+    # --- FEATURE: VARIABLE ASSIGNMENT & MATH ---
     var_match = re.match(r'^store this in me big brain (\w+) (.+)$', line)
     if var_match:
         if not unlocked_features["variables"]:
@@ -45,7 +63,7 @@ def parse_line(line):
             
         var_name, val_expr = var_match.groups()
         
-        # Random Number Generation Block (choose one X thru Y)
+        # Random Number Block (choose one X thru Y)
         if "choose one" in val_expr and "thru" in val_expr:
             if not unlocked_features["random"]:
                 print("dis line oop da dat not righting ): (Random math is locked! Beg Nooby for 'random'!)")
@@ -115,7 +133,7 @@ def parse_line(line):
             print("yo to the yo tengo")
             return
 
-    # 4. PRINTING
+    # --- FEATURE: PRINTING ---
     print_match = re.match(r'^hello world\("(.+)"\)$', line)
     if print_match:
         if not unlocked_features["printing"]:
@@ -129,7 +147,7 @@ def parse_line(line):
         print("yo to the yo tengo")
         return
 
-    # 5. LOOPS
+    # --- FEATURE: LOOPS ---
     loop_match = re.match(r'^do dis lot (\d+) (.+) stawp \):\s*$', line)
     if loop_match:
         if not unlocked_features["loops"]:
@@ -140,21 +158,23 @@ def parse_line(line):
         
         for _ in range(times):
             if inner_command.startswith("hello world"):
-                content = re.match(r'^hello world\("(.+)"\)$', inner_command).group(1)
-                if content in big_brain: print(big_brain[content])
-                else: print(content)
+                c_match = re.match(r'^hello world\("(.+)"\)$', inner_command)
+                if c_match:
+                    content = c_match.group(1)
+                    print(big_brain.get(content, content))
         print("yo to the yo tengo")
         return
 
     print(f"dis ({line}) oop da dat not righting ):")
 
-# --- TERMINAL LOOP ---
+# --- TERMINAL BOOTUP SCREEN ---
 print("--- INSTANT-RUN NOOBGRAM TERMINAL ---")
 print("YO CLICK THIS LINK TO SEE NOOBGRAM LOGO:")
 print("https://github.com")
 print("-------------------------------------")
 print("Everything runs instantly when you hit enter!")
-print("Beg style: nooby pls add [random] i beg T_T")
+print("Beg style: nooby pls add [printing / variables / addition / subtraction / multiplication / division / loops / random / browser] i beg T_T")
+print("Or use the secret master bypass code if you are so tengo...")
 print("-------------------------------------")
 
 while True:
@@ -166,14 +186,14 @@ while True:
     if not user_input:
         continue
 
-    # MASTER BYPASS FEATURE: Instantly unlock everything!
+    # --- THE TOP SECRET MASTER BYPASS COMMAND ---
     if user_input == "nooby you are so tengo (:":
         for feature in unlocked_features:
             unlocked_features[feature] = True
         print("🔥 AIGGGHTTT BET BRO I GOTCHU 🔥")
         continue
 
-    # BEGGING PARSER: Intercepts requests immediately
+    # --- THE BEGGING PARSER ---
     if user_input.startswith("nooby pls add") and user_input.endswith("i beg T_T"):
         beg_request = user_input.replace("nooby pls add", "").replace("i beg T_T", "").strip().lower()
         
@@ -201,9 +221,12 @@ while True:
         elif "rand" in beg_request or "choose" in beg_request:
             unlocked_features["random"] = True
             print("✨ fIne i unlocked RANDOM via 'choose one [min] thru [max]' T_T")
+        elif "browser" in beg_request or "site" in beg_request:
+            unlocked_features["browser"] = True
+            print("✨ fIne i unlocked BROWSER via 'gimme da site \"url\"' T_T")
         else:
             print("🤨 what even is that? stop wasting my time and beg for actual features!")
         continue
 
-    # Run the single line instantly!
+    # Execute the single line instantly!
     parse_line(user_input)
