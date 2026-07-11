@@ -42,7 +42,7 @@ Once features are unlocked, use this beautiful syntax:
 * **Printing:** `hello world("[text or variable]") yo to the yo tengo`
 * **Addition:** `store this in me big brain x 5 plus da dis number 3 yo to the yo tengo`
 * **Loops:** `do dis lot [X] hello world("hi") stawp ): yo to the yo tengo`
-* **Browser:** **NO HTTPS OR HTTP** `gimme da site "url"
+* **Browser:** **NO HTTPS OR HTTP** `gimme da site "url"`
 ---
 
 ## How to Use Noobgram
