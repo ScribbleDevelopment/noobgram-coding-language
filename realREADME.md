@@ -20,8 +20,10 @@ Type these commands directly into the Noobgram interactive terminal to unlock ca
 
 * **Unlock Printing:** `nooby pls add printing i beg T_T`
 * **Unlock Memory:** `nooby pls add variables i beg T_T`
-* **Unlock Math:** `nooby pls add addition i beg T_T`
+* **Unlock Math:** `nooby pls add (type of math) i beg T_T`
 * **Unlock Loops:** `nooby pls add loops i beg T_T`
+* **Unlock Browser:** `nooby pls add browser i beg T_T`
+* **Unlock Random:** `nooby pls add random i beg T_T`
 
 ### The Secret Bypass Key
 If you don't feel like begging, you can bypass the security by typing exactly:
